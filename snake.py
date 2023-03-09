@@ -134,10 +134,7 @@ class Game:
                         max=i[2]
                         max_actions=i[0]
                         max_cells=i[1]
-                print("Score: ",max)
-                print("Actions: ",max_actions)
-                print("Cells: ",max_cells)
-                return
+                return (max, max_actions, max_cells)
 
             # Choose a node from the frontier
             node = frontier.remove()
@@ -166,9 +163,24 @@ class Game:
                 if not frontier.contains_state(state) and state not in self.explored:
                     child = Node(state=state, parent=node, action=action, current_length=node.current_length+1)
                     frontier.add(child)
+        
+    def find_best(self,length):
+        max_all =-9999
+        max_actions_all=""
+        max_cells_all=""
+        for i in range(self.height):
+            for j in range(self.width):
+                max, max_actions, max_cells=self.solve((i,j),length)
+                if max> max_all:
+                    max_all=max
+                    max_cells_all=max_cells
+                    max_actions_all=max_actions
+        print("Score: ",max_all)
+        print("Actions: ",max_actions_all)
+        print("Cells: ",max_cells_all)
 
 if __name__ == '__main__':
     print("Game generated...")
     snake_board=Game(sys.argv[1])
     print("Solving...")
-    snake_board.solve((0,0),6)
+    snake_board.find_best(6)
