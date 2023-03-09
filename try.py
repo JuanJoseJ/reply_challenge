@@ -31,7 +31,10 @@ class Game:
         maxSums = [q1[~(np.isnan(q1))].sum(), q2[~(np.isnan(q2))].sum(), q3[~(np.isnan(q3))].sum(), q4[~(np.isnan(q4))].sum()]
         maxQuadr = maxSums.index(max(maxSums))
         bestQuadrant = quadrants[maxQuadr]
-        initialPoint = np.where(bestQuadrant == bestQuadrant[~(np.isnan(bestQuadrant))].max())
+        maxPoint = bestQuadrant[~(np.isnan(bestQuadrant))].max()
+        initialPoint = np.where(bestQuadrant == maxPoint)
+        print(maxPoint)
+        print(initialPoint)
         coord = [initialPoint[0][0], initialPoint[1][0]]
         if maxQuadr == 1 or maxQuadr == 3:
             coord[1] += halfC
@@ -51,6 +54,7 @@ def main():
     snake_board=Game(sys.argv[1])
     # print(snake_board.board)
     coord = snake_board.initialize()
+    print(coord)
     print(snake_board.board[coord[0], coord[1]])
     return
 
