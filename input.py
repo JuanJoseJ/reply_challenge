@@ -8,11 +8,13 @@ class Game:
         self.C = int(initial[0])
         self.R = int(initial[1])
         self.S = int(initial[2])
-        snakes_lengths=lines[1].replace("\n","").split(" ")
-        for i in lines[2:]:
-            self.board=np.array
-
-
+        self.snakes_lengths=lines[1].replace("\n","").split(" ")
+        for i in range(len(lines[2:])):
+            lines[i+2]=lines[i+2].replace("\n","").split(" ")
+            for j in range(len(lines[i+2])):
+                if (lines[i+2][j]!='*'):
+                    lines[i+2][j]=int(lines[i+2][j])
+        self.board=np.array(lines[2:])
 
 if __name__ == '__main__':
     snake_board=Game(sys.argv[1])
