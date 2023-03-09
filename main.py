@@ -26,7 +26,8 @@ class Snake:
         
 
 def main():
-    
+    snake_board=Game(sys.argv[1])
+    print(snake_board.board)
     return
 
 if __name__ == '__main__':
