@@ -11,9 +11,12 @@ class parameters:
         file = open(self.input_file, "r")
 
         values = file.readline().split(" ")
-        self.C = values[0]
-        self.R = values[1]
-        self.S = values[2]
+        self.C = int(values[0])
+        self.R = int(values[1])
+        self.S = int(values[2])
+
+            
 
 
 param = parameters("reply_challenge/00-example.txt")
+print(param.matrix)
