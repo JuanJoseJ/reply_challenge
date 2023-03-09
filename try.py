@@ -37,7 +37,7 @@ class Game:
             coord[1] += halfC
         if maxQuadr == 2:
             coord[0] += halfR
-        return coord
+        return (coord[0], coord[1])
 
 
 class Snake:
