@@ -1,22 +1,18 @@
 import numpy as np
-
-class parameters:
-    input_file = ''
-    C = 0
-    R = 0
-    S = 0
-
-    def __init__(self, input_file):
-        self.input_file = input_file
-        file = open(self.input_file, "r")
-
-        values = file.readline().split(" ")
-        self.C = int(values[0])
-        self.R = int(values[1])
-        self.S = int(values[2])
-
-            
+import sys
+class Game:
+    def __init__(self, filename):
+        file = open(filename, "r")
+        lines = file.readlines()
+        initial=lines[0].replace("\n","").split(" ")
+        self.C = int(initial[0])
+        self.R = int(initial[1])
+        self.S = int(initial[2])
+        snakes_lengths=lines[1].replace("\n","").split(" ")
+        for i in lines[2:]:
+            self.board=np.array
 
 
-param = parameters("reply_challenge/00-example.txt")
-print(param.matrix)
+
+if __name__ == '__main__':
+    snake_board=Game(sys.argv[1])
