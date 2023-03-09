@@ -30,15 +30,15 @@ class Game:
         quadrants = [q1, q2, q3, q4]
         maxSums = [q1[~(np.isnan(q1))].sum(), q2[~(np.isnan(q2))].sum(), q3[~(np.isnan(q3))].sum(), q4[~(np.isnan(q4))].sum()]
         maxQuadr = maxSums.index(max(maxSums))
+        
         bestQuadrant = quadrants[maxQuadr]
         maxPoint = bestQuadrant[~(np.isnan(bestQuadrant))].max()
         initialPoint = np.where(bestQuadrant == maxPoint)
-        print(maxPoint)
-        print(initialPoint)
+        
         coord = [initialPoint[0][0], initialPoint[1][0]]
         if maxQuadr == 1 or maxQuadr == 3:
             coord[1] += halfC
-        if maxQuadr == 2:
+        if maxQuadr == 2 or maxQuadr == 3:
             coord[0] += halfR
         return (coord[0], coord[1])
 
