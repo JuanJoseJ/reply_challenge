@@ -21,12 +21,21 @@ class Game:
 class Snake:
     def __init__(self, length):
         self.length = length
-        segments = np.zeros((self.length, 2))
+        self.segments = [[0,0], [0,1]]
+        # segments = np.zeros((self.length, 2))
         nextStep = np.array((4, 2)) 
         
+def getScore(Game, Snake):
+    score = 0
+    for i in range(Snake.length):
+        score = score + Game.board[Snake.segments[i]]
+    print(score)
+    return score
 
 def main():
     snake_board=Game(sys.argv[1])
+    snake1=Snake(2)
+    getScore(snake_board, snake1)
     print(snake_board.board)
     return
 
