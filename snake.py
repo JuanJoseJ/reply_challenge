@@ -51,6 +51,8 @@ class Game:
         self.board=lines[2:]
         self.wormholes = []
         self.wormholes_list=[]
+        self.snake_sols=[]
+        self.solutions=[]
         for i in range(len(self.board)):
             self.board[i]=self.board[i].split(' ')
         for i in range(self.height):
@@ -120,12 +122,13 @@ class Game:
 
         # Initialize an empty explored set
         self.explored = set()
-        self.solutions=[]
-
+        
         # Keep looping until solution found
         while True:
             # If nothing left in frontier, then no path
             if frontier.empty():
+                break
+                """
                 #print(self.solutions)
                 max=-999999
                 index=0
@@ -134,7 +137,10 @@ class Game:
                         max=i[2]
                         max_actions=i[0]
                         max_cells=i[1]
-                return (max, max_actions, max_cells)
+                    return ((max, max_actions, max_cells))
+                print(self.solutions)
+                return self.solutions
+                """
 
             # Choose a node from the frontier
             node = frontier.remove()
@@ -163,6 +169,16 @@ class Game:
                 if not frontier.contains_state(state) and state not in self.explored:
                     child = Node(state=state, parent=node, action=action, current_length=node.current_length+1)
                     frontier.add(child)
+
+    def solve_snakes(self):
+        self.snaky=[]
+        for i in self.snakes_lengths:
+            for j in range(self.height):
+                for k in range(self.width):
+                    self.solve((j,k),int(i))
+            self.snaky.append(self.solutions)
+            self.solutions=[]
+        print(self.snaky)
         
     def find_best(self,length):
         max_all =-9999
@@ -179,8 +195,9 @@ class Game:
         print("Actions: ",max_actions_all)
         print("Cells: ",max_cells_all)
 
+
 if __name__ == '__main__':
     print("Game generated...")
     snake_board=Game(sys.argv[1])
     print("Solving...")
-    snake_board.find_best(6)
+    snake_board.solve_snakes()
