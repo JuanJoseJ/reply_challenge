@@ -16,6 +16,8 @@ class Game:
             for j in range(len(lines[i+2])):
                 if (lines[i+2][j]!='*'):
                     lines[i+2][j]=int(lines[i+2][j])
+                else:
+                    lines[i+2][j]=np.nan
         self.board=np.array(lines[2:])
 
 class Snake:
