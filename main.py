@@ -28,10 +28,12 @@ class Snake:
         nextStep = np.array((4, 2)) 
         
 def getScore(Game, Snake):
+    '''
+        Returns the score of a snake on a board game
+    '''
     score = 0
     for i in range(Snake.length):
-        score = score + Game.board[Snake.segments[i]]
-    print(score)
+        score = score + Game.board[Snake.segments[i][0], Snake.segments[i][1]]
     return score
 
 def main():
