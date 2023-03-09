@@ -16,13 +16,15 @@ class Game:
             for j in range(len(lines[i+2])):
                 if (lines[i+2][j]!='*'):
                     lines[i+2][j]=int(lines[i+2][j])
+                else:
+                    lines[i+2][j]=np.nan
         self.board=np.array(lines[2:])
 
 class Snake:
     def __init__(self, length):
         self.length = length
         segments = np.zeros((self.length, 2))
-        nextStep = np.array((4, 2)) 
+        nextStep = np.array((4, 2))
         
 
 def main():
