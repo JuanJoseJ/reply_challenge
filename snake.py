@@ -49,6 +49,7 @@ class Game:
         self.snakes_lengths=lines[1].split(" ")
         self.board=lines[2:]
         self.wormholes = []
+        self.wormholes_list=[]
         for i in range(len(self.board)):
             self.board[i]=self.board[i].split(' ')
         for i in range(self.height):
@@ -56,9 +57,9 @@ class Game:
             for j in range(self.width):
                 try:
                     if self.board[i][j] == "*":
-                        print("asterizco")
                         self.board[i][j]=int(0)
                         row.append(True)
+                        self.wormholes_list.append((i,j))
                     else:
                         row.append(False)
                         self.board[i][j]=int(self.board[i][j])
@@ -68,22 +69,40 @@ class Game:
         self.wormholes=np.array(self.wormholes)
         self.board=np.array(self.board, dtype=int)
         self.solution = None
-        print(self.wormholes)
-        print(self.board)
 
     def neighbors(self, state):
         row, col = state
-        candidates = [
-            ("U", (row - 1, col)),
-            ("D", (row + 1, col)),
-            ("L", (row, col - 1)),
-            ("R", (row, col + 1))
-        ]
+        if self.wormholes[row][col]:
+            candidates=[]
+            #aca van los candidatos de el wormhole
+            for i in self.wormholes_list:
+                if i!=(row,col):
+                    candidates.append("U", (i[0] - 1, i[1])),
+                    candidates.append("D", (i[0] + 1, i[1])),
+                    candidates.append("L", (i[0], i[1] - 1)),
+                    candidates.append("R", (i[0], i[1] + 1))
+        else:
+            candidates = [
+                ("U", (row - 1, col)),
+                ("D", (row + 1, col)),
+                ("L", (row, col - 1)),
+                ("R", (row, col + 1))
+            ]
 
         result = []
         for action, (r, c) in candidates:
-            if 0 <= r < self.height and 0 <= c < self.width and not self.walls[r][c]:
+            if 0 <= r < self.height and 0 <= c < self.width:
                 result.append((action, (r, c)))
+            elif not 0 <= r < self.height:
+                if r>=self.height:
+                    result.append((action, (0, c)))
+                else:
+                    result.append((action, (self.height-1, c)))
+            elif not 0 <= c < self.width:
+                if c>=self.width:
+                    result.append((action, (r, 0)))
+                else:
+                    result.append((action, (r, self.width-1)))
         return result
 
 if __name__ == '__main__':
